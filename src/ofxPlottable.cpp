@@ -29,7 +29,6 @@ void Plottable::update() {
 void Plottable::draw() const {
   if (!visible) return;
   for (auto& shape : shapes) {
-    ofSetColor(shape->color);
     shape->draw();
   }
 }
