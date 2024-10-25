@@ -54,8 +54,8 @@ public:
   void draw() const;
   bool keyPressed(int key); // return true if key press handled
   void save(const std::string& filepath) const;
+  bool visible { false };
 
 private:
   std::vector<std::unique_ptr<Plottable::Shape>> shapes;
-  bool visible { false };
 };
