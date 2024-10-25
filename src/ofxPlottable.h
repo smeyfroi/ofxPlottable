@@ -46,16 +46,20 @@ class Plottable {
   };
 
 public:
+  // Scale factor is used for draw() and for save(), both of which use a viewport shaped as the ofWindow,
+  // so if the plotted shapes are added in other coordinate systems then it needs to be scaled.
+  Plottable(float scaleX_ = 1.0, float scaleY_ = 1.0) : scaleX(scaleX_), scaleY(scaleY_) {};
   void addCircle(float x, float y, float r, ofColor color, uint64_t lifetimeFrames=40);
   void addLine(float x, float y, float x2, float y2, ofColor color, uint64_t lifetimeFrames=40);
   void addArc(float x, float y, float r, float angleBegin, float angleEnd, ofColor color, uint64_t lifetimeFrames=40);
 
   void update();
-  void draw() const;
+  void draw(bool overrideVisibility = false) const;
   bool keyPressed(int key); // return true if key press handled
   void save(const std::string& filepath) const;
   bool visible { false };
 
 private:
+  float scaleX, scaleY;
   std::vector<std::unique_ptr<Plottable::Shape>> shapes;
 };

@@ -26,16 +26,19 @@ void Plottable::update() {
                shapes.end());
 }
 
-void Plottable::draw() const {
-  if (!visible) return;
+void Plottable::draw(bool overrideVisibility) const {
+  if (!overrideVisibility && !visible) return;
+  ofPushMatrix();
+  ofScale(scaleX, scaleY);
   for (auto& shape : shapes) {
     shape->draw();
   }
+  ofPopMatrix();
 }
 
 void Plottable::save(const std::string& filepath) const {
   ofBeginSaveScreenAsSVG(filepath);
-  draw();
+  draw(true);
   ofEndSaveScreenAsSVG();
 }
 
